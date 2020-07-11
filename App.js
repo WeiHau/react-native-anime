@@ -1,19 +1,37 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Modal } from "react-native";
 
-export default function App() {
+import Collection from "./collection/Collection";
+import AnimeProfile from "./animeProfile/AnimeProfile";
+
+const App = (props) => {
+  const [selectedAnime, setSelectedAnime] = useState(null);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <AnimeProfile
+        anime={selectedAnime}
+        onBack={() => {
+          setSelectedAnime(null);
+        }}
+        setSelectedCategories={setSelectedCategories}
+      />
+      <Collection
+        selectAnime={setSelectedAnime}
+        anime={selectedAnime}
+        selectedCategories={selectedCategories}
+        setSelectedCategories={setSelectedCategories}
+      />
     </View>
   );
-}
+};
+
+export default App;
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 30,
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
